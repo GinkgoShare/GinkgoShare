@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Navigation } from 'components'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { container, innerContainer } from './styles.css'
+import theme from "../../sharedStyles/theme"
 
 const propTypes = {}
 
@@ -15,13 +17,15 @@ class MainContainer extends Component {
   }
 
   render () {
-    console.log(<Navigation isAuthed={false} />)
     return (
-      <div className={container}> 
-        <div className={innerContainer}>
-          {this.props.children}
+      <MuiThemeProvider muiTheme={theme.muiTheme}>
+        <div className={container}> 
+          <Navigation isAuthed={true} title="GinkgoShare" link="https://github.com/GinkgoShare" />
+          <div className={innerContainer}>
+            {this.props.children}
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     )
   }
 }

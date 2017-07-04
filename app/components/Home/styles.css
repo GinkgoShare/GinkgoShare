@@ -9,3 +9,7 @@
 .slogan {
   composes: subHeader from '../../sharedStyles/styles.css';
 }
+
+.appBar {
+  position: fixed;
+}

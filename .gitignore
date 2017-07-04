@@ -60,3 +60,6 @@ typings/
 # project
 dist
 
+# bower
+bower_components
+

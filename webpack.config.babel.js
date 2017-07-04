@@ -39,7 +39,11 @@ const base = {
         exclude: /node_modules/, 
         use: 'babel-loader'
       },
-      {'test': /\.css$/, 'loader': 'style-loader!css-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]'},
+      {
+        test: /\.css$/, 
+        exclude: /bower_components/,
+        loader: 'style-loader!css-loader?sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]'
+      },
       // {
       //   test: /\.css$/, 
       //   use: [

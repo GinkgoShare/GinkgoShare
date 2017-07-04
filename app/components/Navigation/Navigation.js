@@ -1,10 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import { container, navContainer, link } from './styles.css'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { AppBar, FlatButton, IconButton } from 'material-ui'
+import { container, navContainer, link, appBar } from './styles.css'
+import NavigationHome from 'material-ui/svg-icons/action/home'
+import FaGithub from 'react-icons/lib/fa/github'
 
-Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
+NavLinks.propTypes = {
+  isAuthed: PropTypes.bool.isRequired
+}
+
+ActionLinks.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
+  link: PropTypes.string.isRequired
+}
+
+Navigation.propTypes = {
+  isAuthed: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired
 }
 
 function NavLinks ({isAuthed}) {
@@ -15,25 +30,24 @@ function NavLinks ({isAuthed}) {
     : <noscript />
 }
 
-function ActionLinks ({isAuthed}) {
+function ActionLinks ({ isAuthed, link }) {
   return isAuthed === true
-    ? <ul>
-        <li>NEW DUCK</li>
-        <li><Link to='/logout' className={link}>{'Logout'}</Link></li>
-      </ul>
-    : <ul>
-        <li><Link to='/' className={link}>{'Home'}</Link></li>
-        <li><Link to='/auth' className={link}>{'Authenticate'}</Link></li>
-      </ul>
+    ? <IconButton href={link} target="_blank">
+        <FaGithub />
+      </IconButton>
+    : <FlatButton label="Login" />
 }
 
-export default function Navigation ({isAuthed}) {
+export default function Navigation ({isAuthed, title, link}) {
   return (
-    <div className={container}>
-      <nav className={navContainer}>
-        <NavLinks isAuthed={isAuthed} />
-        <ActionLinks isAuthed={isAuthed} />
-      </nav>
-    </div>
+    <AppBar title={title} className={appBar}
+      iconElementLeft={<IconButton><NavigationHome /></IconButton>} 
+      iconElementRight={<ActionLinks isAuthed={isAuthed} link={link} />}
+      onLeftIconButtonTouchTap={handleLeftIconButtonTouchTap} 
+      zDepth={4} />
   )
 }
+
+const handleLeftIconButtonTouchTap = () => {
+  console.log("handleLeftIconButtonTouchTap")
+} 
